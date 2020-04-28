@@ -31,7 +31,7 @@
     var arrayBuffer = [];
     socket.on('stream', stream => {
       if(stream){
-        arrayBuffer.push(stream.media);
+        console.log(stream);
         var blob = new Blob(stream.media, {type: 'video/mp4'});
         video.src = window.URL.createObjectURL(blob);
         video.currentTime = (stream.time / 1000) - 10;
