@@ -30,15 +30,18 @@
     var ctx = canvas.getContext('2d');
     var arrayBuffer = [];
     var media;
+    var blob;
     var time;
     socket.on('stream', stream => {
       if(stream){
         media = stream.media;
         time = stream.time;
-        var blob = new Blob(media, {type: 'video/mp4'});
-        var url = URL.createObjectURL(blob);
-        video.src = url;
-        video.currentTime = (time - 10000) / 1000
+        blob = new Blob(media, {type: 'video/mp4'});
+        setTimeout(function(){
+            var url = URL.createObjectURL(blob);
+            video.src = url;
+            video.currentTime = (time - 10000) / 1000
+        }, 0);
       }
     });
     setInterval(() => {
