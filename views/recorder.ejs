@@ -37,12 +37,12 @@
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.ondataavailable = e =>{
                 arrayBuffer.push(e.data);
-                time += 1000;
+                time += 10000;
                 if(!stop){
                     socket.emit('stream', {media: arrayBuffer, time: time});
                 }
             }
-            mediaRecorder.start(1000);
+            mediaRecorder.start(10000);
         }, error => {
 
         });
