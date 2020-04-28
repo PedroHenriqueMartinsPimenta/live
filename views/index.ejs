@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live - Agendamento de equipamentos </title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <style>
+    #card{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 640px;
+      height: 480px;
+      transform: translate(-50%, -50%);
+      box-shadow: 1px 1px 10px 2px rgba(20, 20, 20, 0.5);
+    }
+    
+  </style>
+</head>
+<body>
+  <video src="" id="view" autoplay style="display: none;"></video>
+  <div id="card">
+    <canvas id="canvas" width="640px" height="480px"></canvas>
+  </div>
+  <script>
+    var socket = io();
+    var canvas = document.querySelector('#canvas');
+    var video = document.querySelector("#view");
+    var ctx = canvas.getContext('2d');
+    var arrayBuffer = [];
+    socket.on('stream', stream => {
+      if(stream){
+        arrayBuffer.push(stream.media);
+        var blob = new Blob(stream.media, {type: 'video/mp4'});
+        video.src = window.URL.createObjectURL(blob);
+        video.currentTime = (stream.time / 1000) - 5;
+        console.log(video.currentTime);
+      }
+    });
+    setInterval(() => {
+      ctx.drawImage(video, 0, 0);
+    }, 100);
+  </script>
+</body>
+</html>
