@@ -44,7 +44,7 @@
       console.log(array)
       blob = new Blob(array, {type: 'video/mp4'});
       video.src = window.URL.createObjectURL(blob);
-      video.currentTime = (time / 1000) - 30;
+      video.currentTime = (time / 1000) - 10;
     }
     setInterval(() => {
       ctx.drawImage(video, 0, 0);
