@@ -30,11 +30,17 @@
     var ctx = canvas.getContext('2d');
     var arrayBuffer = [];
     var blob;
+    var go = true;
+    var media;
+    var time;
     socket.on('stream', stream => {
       if(stream){
-        if((stream.media.length - 2) > 0){
+        media = stream.media;
+        time = stream.time;
+        if((stream.media.length - 2) > 0 && go){
+          go = false
           setInterval(function(){
-            timer(stream.media, stream.time);
+            timer(media, time);
           }, 10000)
         }
       }
