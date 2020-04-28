@@ -33,7 +33,9 @@
     socket.on('stream', stream => {
       if(stream){
         if((stream.media.length - 2) > 0){
-          timer(stream.media, stream.time);
+          setInterval(function(){
+            timer(stream.media, stream.time);
+          }, 10000)
         }
       }
     });
