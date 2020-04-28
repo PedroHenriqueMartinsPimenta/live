@@ -37,13 +37,7 @@
       if(stream){
         media = stream.media;
         time = stream.time;
-        if((stream.media.length - 2) > 0 && go){
-          go = false
-          setInterval(function(){
-            timer(media, time);
-            console.log(video.currentTime);
-          }, 10000)
-        }
+        timer(media, time);
       }
     });
     function timer(arrayB, time){
@@ -51,7 +45,7 @@
       console.log(array)
       blob = new Blob(array, {type: 'video/mp4'});
       video.src = window.URL.createObjectURL(blob);
-      video.currentTime = (time / 1000) - 10;
+      video.currentTime = (time / 1000) - 10 - 30;
     }
     setInterval(() => {
       ctx.drawImage(video, 0, 0);
