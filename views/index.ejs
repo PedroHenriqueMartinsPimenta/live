@@ -29,24 +29,18 @@
     var video = document.querySelector("#view");
     var ctx = canvas.getContext('2d');
     var arrayBuffer = [];
-    var blob;
-    var go = true;
     var media;
     var time;
     socket.on('stream', stream => {
       if(stream){
         media = stream.media;
         time = stream.time;
-        timer(media, time);
+        var blob = new Blob(media, {type: 'video/mp4'});
+        var url = URL.createObjectURL(blob);
+        video.src = url;
+        video.currentTime = (time - 10000) / 1000
       }
     });
-    function timer(arrayB, time){
-      var array = arrayB.slice(0, arrayB.length - 2)
-      console.log(array)
-      blob = new Blob(array, {type: 'video/mp4'});
-      video.src = window.URL.createObjectURL(blob);
-      video.currentTime = (time / 1000) - 10 - 30;
-    }
     setInterval(() => {
       ctx.drawImage(video, 0, 0);
     }, 100);
