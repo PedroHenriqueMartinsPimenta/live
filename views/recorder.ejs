@@ -38,9 +38,6 @@
             mediaRecorder.ondataavailable = e =>{
                 arrayBuffer.push(e.data);
                 time += 10000;
-                if(!stop){
-                    socket.emit('stream', {media: arrayBuffer, time: time});
-                }
             }
             mediaRecorder.start(10000);
         }, error => {
@@ -52,6 +49,11 @@
         video.onpause = function(){
             stop = true;
         }
+        setInterval(() => {
+            if(!stop){
+                    socket.emit('stream', {media: arrayBuffer, time: time});
+                }
+        }, 10000);
     </script>
 </body>
 </html>
