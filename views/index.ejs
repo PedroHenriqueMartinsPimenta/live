@@ -66,14 +66,13 @@
             view = 1;
           }
         }
-
+        console.log(video1.currentTime, video2.currentTime, view);
         if (blob) {
           reader.readAsDataURL(blob);
         }
       }
     });
     setInterval(() => {
-      console.log(view);
       if(view == 2){
         ctx.drawImage(video1, 0, 0);
       }else if(view == 1){
