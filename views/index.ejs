@@ -53,16 +53,16 @@
             if(fristView){
               video1.src = reader.result;
               video1.pause();
-              video1.currentTime = (time / 1000) - 10;
+              video1.currentTime = (time / 1000) - 20;
               fristView = false;
             }else{
               video1.src = reader.result;
-              video1.currentTime = (time / 1000) - 10;
+              video1.currentTime = (time / 1000) - 20;
               view = 2;
             }
           }else if(view == 2){
             video2.src = reader.result;
-            video2.currentTime = (time / 1000) - 10;
+            video2.currentTime = (time / 1000) - 20;
             view = 1;
           }
         }
