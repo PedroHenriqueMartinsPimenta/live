@@ -20,7 +20,8 @@
   </style>
 </head>
 <body>
-  <video src="" id="view" autoplay style="display: none">
+  <video src="" id="view1" autoplay style="display: none;"></video><br>
+  <video src="" id="view2" autoplay style="display: none;"></video>
     
   </video>
   <div id="card">
@@ -30,7 +31,10 @@
     var socket = io();
     var canvas = document.querySelector('#canvas');
     var preview = document.querySelector('img');
-    var video = document.querySelector("#view");
+    var video1 = document.querySelector("#view1");
+    var video2 = document.querySelector('#view2');
+    var view = 1;
+    var fristView = true;
     var ctx = canvas.getContext('2d');
     var arrayBuffer = [];
     var media;
@@ -45,8 +49,22 @@
         var reader  = new FileReader();
 
         reader.onloadend = function () {
-          video.src = reader.result;
-          video.currentTime = (time / 1000) - 10;
+          if(view == 1){
+            if(fristView){
+              video1.src = reader.result;
+              video1.pause();
+              video1.currentTime = (time / 1000) - 20;
+              fristView = false;
+            }else{
+              video1.src = reader.result;
+              video1.currentTime = (time / 1000) - 20;
+              view = 2;
+            }
+          }else if(view == 2){
+            video2.src = reader.result;
+            video2.currentTime = (time / 1000) - 20;
+            view = 1;
+          }
         }
 
         if (blob) {
@@ -55,7 +73,12 @@
       }
     });
     setInterval(() => {
-      ctx.drawImage(video, 0, 0);
+      console.log(view);
+      if(view == 2){
+        ctx.drawImage(video1, 0, 0);
+      }else if(view == 1){
+        ctx.drawImage(video2, 0, 0);        
+      }
     }, 100);
   </script>
 </body>
