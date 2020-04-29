@@ -36,14 +36,11 @@
             video.srcObject = stream;
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.ondataavailable = e =>{
-                setTimeout(() => {
-                    arrayBuffer.push(e.data);
-                    time += 10000;
-                    if(!stop){
-                        socket.emit('stream', {media: arrayBuffer, time: time});
-                    }
-                }, 0);
-                
+                arrayBuffer.push(e.data);
+                time += 10000;
+                if(!stop){
+                    socket.emit('stream', {media: arrayBuffer, time: time});
+                }
             }
             mediaRecorder.start(10000);
             
